@@ -1,0 +1,1 @@
+fern -D miniseed   -e 'usgs:usp0006dzc' -n XE -d +30m -c BHZ
