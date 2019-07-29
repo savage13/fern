@@ -1,1 +1,0 @@
-fern -D sac   -e 'usgs:usp0006dzc' -n XE -v -d +30m -c BHZ -s DOOR

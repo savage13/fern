@@ -28,6 +28,7 @@ Arg     *request_get_arg(request *r, char *key);
 int      request_del_arg(request *r, char *key);
 void     request_set_url(request *r, char *url);
 void     request_set_verbose(request *r, int verbose);
+void     request_set_progress(request *r, int progress);
 char    *request_get_url(request *r);
 
 result *result_new();

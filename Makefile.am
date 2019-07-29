@@ -38,8 +38,10 @@ libfern_a_SOURCES = array.c array.h \
 
 # TESTS
 
-TESTS = t/
-EXTRA_DIST +=
+TEST_EXTENSIONS = .sh
+TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
+        t/test_avail.sh t/test_miniseed.sh t/test_sac.sh
+# EXTRA_DIST += t/test_event.test
 
 #check_PROGRAMS = t/iotest t/compat
 
@@ -51,7 +53,8 @@ EXTRA_DIST +=
 #t_iotest_LDADD = libsacio_bsd.a -lm
 #t_compat_LDADD = libsacio_bsd.a -lm
 
-#CLEANFILES = t/test*.tmp
+CLEANFILES = t/*.test t/test_miniseed*mseed
+
 
 doc:
 	doxygen docs/Doxyfile

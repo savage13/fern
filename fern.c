@@ -41,6 +41,7 @@ main(int argc, char *argv[]) {
     duration d = {0,0};
     station **s = NULL;
     int verbose = 0;
+    int pbar = 1;
     int epochs = FALSE;
     int show_times = FALSE;
     double v1 = 0.0, v2 = 0.0, v3 = 0.0, v4 = 0.0;
@@ -75,16 +76,21 @@ main(int argc, char *argv[]) {
         {"origin",    required_argument, NULL, 'O'},
         {"prefix",    required_argument, NULL, 'p'},
         {"input",     required_argument, NULL, 'i'},
-        {"output",     required_argument, NULL, 'o'},
+        {"output",    required_argument, NULL, 'o'},
+        {"quiet",     no_argument,       NULL, 'q'},
         {NULL, 0, NULL, 0},
     };
     r = request_new();
 
-    while((ch = getopt_long(argc, argv, "ESD:m:t:R:r:z:vn:s:l:c:e:d:M:O:ywp:i:o:", longopts, NULL)) != -1) {
+    while((ch = getopt_long(argc, argv, "ESD:m:t:R:r:z:vn:s:l:c:e:d:M:O:ywp:i:o:q", longopts, NULL)) != -1) {
         switch(ch) {
         case 'v':
             request_set_verbose(r, 1);
             verbose = 1;
+            break;
+        case 'q':
+            request_set_progress(r, 0);
+            pbar = 0;
             break;
         case 'D':
             request_set_url(r, DATA_URL);
@@ -278,7 +284,7 @@ main(int argc, char *argv[]) {
         if(strlen(request_file) == 0) {
             fdr = data_request_parse(result_data(res));
             data_request_chunks(fdr, (size_t) chunk_size);
-            if(verbose) {
+            if(ActionAvailable || verbose) {
                 data_request_write(fdr, stdout);
             }
         } else {

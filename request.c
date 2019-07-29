@@ -156,6 +156,7 @@ struct request {
     char *url;   /**< \private  URL to send request to */
     dict *args;  /**< \private  Key-Values pairs */
     int verbose; /**< \private  Display details about the request */
+    int progress; /**< \private Show progress bar during download */
 };
 
 /**
@@ -207,6 +208,7 @@ request_new() {
     request *r = calloc(1, sizeof(request));
     r->args = dict_new();
     r->verbose = 0;
+    r->progress = 1;
     return r;
 }
 
@@ -243,6 +245,19 @@ request_set_verbose(request *r, int verbose) {
     r->verbose = verbose;
 }
 
+/**
+ * Set if request will be have a progress bar during download
+ *
+ * @memberof request
+ * @ingroup request
+ *
+ * @param r        Request to change progress during download
+ * @param verbose  1 for show progress bar, 0 for no progress bar
+ */
+void
+request_set_progress(request *r, int progress) {
+    r->progress = progress;
+}
 
 /**
  * Grow a character string if necessary
@@ -451,7 +466,7 @@ request_del_arg(request *r, char *key) {
  *
  */
 result *
-request_url_post(char *url, char *post_data) {
+request_url_post(char *url, char *post_data, int progress_bar) {
     result *r = result_new();
     struct myprogress prog;
     dnld_params_t dnld_params;
@@ -494,11 +509,16 @@ request_url_post(char *url, char *post_data) {
         /* enable all supported built-in compressions */
         curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "");
 
-        // Transfer Information
-        curl_easy_setopt(curl, CURLOPT_XFERINFOFUNCTION, xferinfo);
-        curl_easy_setopt(curl, CURLOPT_XFERINFODATA, &prog);
-        if(show_progress_bar(-1)) {
-            curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
+        if(progress_bar) {
+            if(!isatty(fileno(stderr))) {
+                progress_bar = 0;
+            }
+        }
+        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, ! progress_bar);
+        if(progress_bar) {
+            // Transfer Information
+            curl_easy_setopt(curl, CURLOPT_XFERINFOFUNCTION, xferinfo);
+            curl_easy_setopt(curl, CURLOPT_XFERINFODATA, &prog);
         }
 
         // Setup POST if necessary
@@ -528,7 +548,9 @@ request_url_post(char *url, char *post_data) {
         curl_easy_cleanup(curl);
     }
     //curl_global_cleanup();
-    clear_line();
+    if(progress_bar) {
+        clear_line();
+    }
 
     return r;
 }
@@ -561,7 +583,7 @@ request_post(request *r, char *post_data) {
             printf("%s\n", post_data);
         }
     }
-    out = request_url_post(url, post_data);
+    out = request_url_post(url, post_data, r->progress);
  error:
     FREE(url);
     return out;
@@ -600,8 +622,8 @@ request_get(request *r) {
  *
  */
 result *
-request_url_get(char *url) {
-    return request_url_post(url, NULL);
+request_url_get(char *url, int progress) {
+    return request_url_post(url, NULL, progress);
 }
 
 
@@ -873,40 +895,6 @@ data_size(int64_t bytes, char *out, size_t n) {
     snprintf(out, n, "%lld %s", bytes, unit[0]);
     return out;
 }
-
-#ifdef PROGRESS_BAR
-#define SAC_SHOW_PROGRESS_BAR "SAC_SHOW_PROGRESS_BAR"
-int env_bool(char *env, int def);
-
-/**
- * @private
- * @ingroup request
- */
-static int
-show_progress_bar(int getset) {
-    static int virgin = TRUE;
-    static int show_bar = TRUE;
-    if (virgin) {
-        virgin = FALSE;
-        show_bar = env_bool(SAC_SHOW_PROGRESS_BAR, show_bar);
-    }
-    if (getset == 1 || getset == 0) {
-        show_bar = getset;
-        virgin = FALSE;
-    }
-    return show_bar;
-
-}
-#else
-
-/**
- * @private
- * @ingroup request
- *
- */
-static int show_progress_bar(int getset) { UNUSED(getset); return TRUE; }
-
-#endif
 
 /**
  * Callback to report transfer info
