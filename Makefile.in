@@ -496,7 +496,7 @@ top_srcdir = @top_srcdir@
 
 # Do not create dependencies while compiling
 AUTOMAKE_OPTIONS = no-dependencies
-EXTRA_DIST = License README.md
+EXTRA_DIST = License README.md t config
 AM_CFLAGS = -Wall -Wextra -Iinclude/ $(XML_CPPFLAGS) $(LIBCURL_CPPFLAGS)
 fernlibdir = $(libdir)/
 fernincdir = $(includedir)/fern
@@ -511,7 +511,7 @@ libfern_a_SOURCES = array.c array.h \
 										cJSON.c cJSON.h \
 										chash.c chash.h \
 										cprint.c cprint.h \
-                    datareq.c fern/datareq.h \
+                    datareq.c datareq.h \
 										event.c event.h \
 										json.c json.h \
 										meta.c meta.h \
@@ -530,7 +530,6 @@ TEST_EXTENSIONS = .sh
 TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
         t/test_avail.sh t/test_miniseed.sh t/test_sac.sh
 
-# EXTRA_DIST += t/test_event.test
 
 #check_PROGRAMS = t/iotest t/compat
 
@@ -541,7 +540,7 @@ TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
 #t_compat_CFLAGS = -Iinclude
 #t_iotest_LDADD = libsacio_bsd.a -lm
 #t_compat_LDADD = libsacio_bsd.a -lm
-CLEANFILES = t/*.test
+CLEANFILES = t/*.test t/test_miniseed*mseed
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -1243,11 +1242,9 @@ disttest:
 	make clean
 	make
 	make test
+	make dist
 	tar -zxf $(PACKAGE)-$(VERSION).tar.gz
-	cd $(PACKAGE)-$(VERSION)
-	./configure
-	make
-	make test
+	cd $(PACKAGE)-$(VERSION) && ./configure && make && make test
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -23,7 +23,7 @@ libfern_a_SOURCES = array.c array.h \
 										cJSON.c cJSON.h \
 										chash.c chash.h \
 										cprint.c cprint.h \
-                    datareq.c fern/datareq.h \
+                    datareq.c datareq.h \
 										event.c event.h \
 										json.c json.h \
 										meta.c meta.h \
@@ -41,7 +41,7 @@ libfern_a_SOURCES = array.c array.h \
 TEST_EXTENSIONS = .sh
 TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
         t/test_avail.sh t/test_miniseed.sh t/test_sac.sh
-# EXTRA_DIST += t/test_event.test
+EXTRA_DIST += t config
 
 #check_PROGRAMS = t/iotest t/compat
 
@@ -68,8 +68,6 @@ disttest:
 	make clean
 	make
 	make test
+	make dist
 	tar -zxf $(PACKAGE)-$(VERSION).tar.gz
-	cd $(PACKAGE)-$(VERSION)
-	./configure
-	make
-	make test
+	cd $(PACKAGE)-$(VERSION) && ./configure && make && make test
