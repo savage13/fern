@@ -13,10 +13,17 @@ if [ ! -e libmseed ]; then
 fi
 if [ ! -e sacio ]; then
     echo "Downloading ${SACIO}.tar.gz"
-    wget -q -O ${SACIO}.tar.gz https://github.com/savage13/sacio/archive/v${SACIO_V}.tar.gz
-    tar zxf ${SACIO}.tar.gz
-
-    mv sacio-${SACIO_V} sacio
+    wget -q -O ${SACIO}.tar.gz https://github.com/savage13/sacio/tarball/master
+    mkdir sacio 
+    tar zxf ${SACIO}.tar.gz -C sacio --strip-components 1
+    if [ ! -e sacio ] ; then
+        echo "Error making sacio directory"
+        exit -1
+    fi
+    if [ ! -e sacio/configure ]; then
+        echo "Error unpacking sacio distribution"
+        exit -1
+    fi
 fi
 
 if [ ! -e libmseed/libmseed.a ]; then
@@ -33,4 +40,4 @@ if [ ! -e sacio/libsacio_bsd.a ]; then
     cd ..
 fi
 
-./configure LDFLAGS="-Llibmseed -Lsacio" CFLAGS="-Isacio" && make && make test
+./configure LDFLAGS="-Llibmseed -Lsacio" && make && make test

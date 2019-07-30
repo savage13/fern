@@ -66,7 +66,6 @@ struct myprogress {
 };
 
 
-static int show_progress_bar(int getset);
 void result_from_curl(result *r, int code, char *data, size_t n);
 size_t dnld_header_parse(void *hdr, size_t size, size_t nmemb, void *userdata);
 static size_t memory_callback(void *contents, size_t size, size_t nmemb, void *userp);

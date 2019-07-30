@@ -349,7 +349,7 @@ xarray_index(void *a, size_t i) {
     if (!(ah = xarray_header(a))) {
         return NULL;
     }
-    if(i < 0 ||  i >= ah->len) {
+    if(i >= ah->len) {
         printf("xarray: attempt to index for non-existant value\n");
         return NULL;
     }

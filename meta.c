@@ -571,7 +571,6 @@ sac_array_fill_meta_data_from_file(sac **files, int verbose, char *file) {
                  SAC_STLA, SAC_STLO, SAC_STEL, SAC_STDP, SAC_CMPAZ,
                  SAC_CMPINC, SAC_INST};
     meta_data **ms = NULL;
-    size_t n = 0;
 
     if(is_xml_file(file)) {
         size_t n = 0;
@@ -586,7 +585,7 @@ sac_array_fill_meta_data_from_file(sac **files, int verbose, char *file) {
     if(!ms) {
         return;
     }
-    n = xarray_length(ms);
+
     for(size_t i = 0; i < xarray_length(files); i++) {
         meta_data *m = NULL;
         sac *s = files[i];

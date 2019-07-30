@@ -1037,7 +1037,7 @@ data_request_write(data_request *fdr, FILE *fp) {
         fprintf(fp, "## REQUEST PARAMETERS \n");
         char **keys = dict_keys(fdr->pars);
         for(j = 0; keys[j]; j++) {
-            fprintf(fp, "%s=%s\n", keys[j], dict_get(fdr->pars, keys[j]));
+            fprintf(fp, "%s=%s\n", keys[j], (char*) dict_get(fdr->pars, keys[j]));
         }
         for(j = 0; keys[j]; j++) { FREE(keys[j]); } FREE(keys);
         fprintf(fp,"\n");
@@ -1047,13 +1047,13 @@ data_request_write(data_request *fdr, FILE *fp) {
         cfprintf(fp, "bold,black", "## REQUEST %zu/ %zu\n", i+1, n);
         breq_fast *r = fdr->reqs[i];
         COMMENT(r,fp);
-        fprintf(fp, "%s=%s\n", "DATACENTER", dict_get(r->urls, "DATACENTER"));
+        fprintf(fp, "%s=%s\n", "DATACENTER", (char *) dict_get(r->urls, "DATACENTER"));
         if(!is_tty) {
             char **keys = dict_keys(r->urls);
             for(j = 0 ; keys[j]; j++) {
                 if(strcmp(keys[j], "DATACENTER") != 0) {
                     COMMENT(r,fp);
-                    fprintf(fp, "%s=%s\n", keys[j], dict_get(r->urls, keys[j]));
+                    fprintf(fp, "%s=%s\n", keys[j], (char *) dict_get(r->urls, keys[j]));
                 }
             }
             for(j = 0; keys[j]; j++) { FREE(keys[j]); } FREE(keys);
