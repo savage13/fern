@@ -1,4 +1,4 @@
-./fern -D miniseed   -e 'usgs:usp0006dzc' -n XE -d +30m -c BHZ -q -p t/test_miniseed -o t/test_miniseed.request.test
+./fern -D miniseed   -e 'usgs:usp0006dzc' -n XE -d +30m -c BHZ -p t/test_miniseed -o t/test_miniseed.request.test
 
 # Check Request
 diff t/test_miniseed.request.test t/test_miniseed.request

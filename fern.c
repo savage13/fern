@@ -29,6 +29,44 @@ typedef enum _action action;
 #define ActionRequest   (ActionAvailable | ActionMiniseed | ActionSac)
 
 
+void
+usage(char *prog) {
+    printf("usage: %s [-S] [-E] [-D miniseed|sac|available] [opts]\n", prog);
+    printf("       -E --event-query \n"
+           "       -S --station-query \n"
+           "       -D --data-query available | sac | miniseed \n"
+           "       -m --mag min/max \n"
+           "       -t --time start end \n"
+           "       -R --region W/E/S/N \n"
+           "       -r --radius min/max in degrees \n"
+           "       -z --depth min/max in km \n"
+           "       -n --network list,of,net,works accepts wildcards and negation \n"
+           "       -s --station list,of,sta,tions accepts wildcards and negation \n"
+           "       -l --location list,of,loc,ations accepts wildcards and negation \n"
+           "       -c --channel list,of,cha,nnels accepts wildcards and negation \n"
+           "       -y --epochs \n"
+           "       -w --show-time \n"
+           "       -e --event catalog:eventid \n"
+           "       -d --duration duration \n"
+           "       -M --max size of miniseed download in MB [200] \n"
+           "       -O --origin lon/lat \n"
+           "       -p --prefix prefix_for_miniseed_file \n"
+           "       -i --input input_request_files \n"
+           "       -o --output output_request_file \n"
+           "       -v --verbose \n"
+           );
+}
+
+void
+error(char *prog, char *msg, ...) {
+    va_list ap;
+    usage(prog);
+    va_start(ap, msg);
+    vprintf(msg, ap);
+    va_end(ap);
+    exit(-1);
+}
+
 int
 main(int argc, char *argv[]) {
     int ch = 0;
@@ -41,7 +79,6 @@ main(int argc, char *argv[]) {
     duration d = {0,0};
     station **s = NULL;
     int verbose = 0;
-    int pbar = 1;
     int epochs = FALSE;
     int show_times = FALSE;
     double v1 = 0.0, v2 = 0.0, v3 = 0.0, v4 = 0.0;
@@ -68,8 +105,8 @@ main(int argc, char *argv[]) {
         {"station",   required_argument, NULL, 's'},
         {"location",  required_argument, NULL, 'l'},
         {"channel",   required_argument, NULL, 'c'},
-        {"epochs",    required_argument, NULL, 'y'},
-        {"show-time", required_argument, NULL, 'w'},
+        {"epochs",          no_argument, NULL, 'y'},
+        {"show-time",       no_argument, NULL, 'w'},
         {"event",     required_argument, NULL, 'e'},
         {"duration",  required_argument, NULL, 'd'},
         {"max",       required_argument, NULL, 'M'},
@@ -77,20 +114,17 @@ main(int argc, char *argv[]) {
         {"prefix",    required_argument, NULL, 'p'},
         {"input",     required_argument, NULL, 'i'},
         {"output",    required_argument, NULL, 'o'},
-        {"quiet",     no_argument,       NULL, 'q'},
+        {"quiet",           no_argument, NULL, 'q'},
+        {"verbose",         no_argument, NULL, 'v'},
         {NULL, 0, NULL, 0},
     };
     r = request_new();
 
-    while((ch = getopt_long(argc, argv, "ESD:m:t:R:r:z:vn:s:l:c:e:d:M:O:ywp:i:o:q", longopts, NULL)) != -1) {
+    while((ch = getopt_long(argc, argv, "ESD:m:t:R:r:z:vn:s:l:c:e:d:M:O:ywp:i:o:", longopts, NULL)) != -1) {
         switch(ch) {
         case 'v':
             request_set_verbose(r, 1);
             verbose = 1;
-            break;
-        case 'q':
-            request_set_progress(r, 0);
-            pbar = 0;
             break;
         case 'D':
             request_set_url(r, DATA_URL);
@@ -103,8 +137,7 @@ main(int argc, char *argv[]) {
             } else if(strcasecmp(optarg, "sac") == 0) {
                 act = ActionSac;
             } else {
-                printf("error: expected data-query request, miniseed, or sac, found %s\n", optarg);
-                exit(-1);
+                error(argv[1], "error: expected data-query available, miniseed, or sac, found %s\n", optarg);
             }
             break;
         case 'E':
@@ -123,8 +156,7 @@ main(int argc, char *argv[]) {
             break;
         case 'e':
             if(!(e = event_from_id(optarg))) {
-                printf("error: expected event id, got %s\n", optarg);
-                exit(-1);
+                error(argv[1],"error: expected event id, got %s\n", optarg);
             }
             break;
         case 'r':
@@ -171,21 +203,18 @@ main(int argc, char *argv[]) {
             break;
         case 'm':
             if(sscanf(optarg, "%lf/%lf", &v1,&v2) != 2) {
-                printf("error: expected magnitude min/max, found %s\n", optarg);
-                exit(-1);
+                error(argv[1],"error: expected magnitude min/max, found %s\n", optarg);
             }
             request_set_arg(r, "minmag", arg_double_new(v1));
             request_set_arg(r, "maxmag", arg_double_new(v2));
             break;
         case 't':
             if(!timespec64_parse(optarg, &t1)) {
-                printf("error: expected time value, found %s\n", optarg);
-                exit(-1);
+                error(argv[1],"error: expected time value, found %s\n", optarg);
             }
             if(optind < argc && !timespec64_parse(argv[optind], &t2)) {
                 if(optind < argc && !duration_parse(argv[optind], &d)) {
-                    printf("error: expected time or duration value, found %s\n", optarg);
-                    exit(-1);
+                    error(argv[1],"error: expected time or duration value, found %s\n", optarg);
                 }
                 t2 = timespec64_add_duration(t1, &d);
             }
@@ -195,8 +224,7 @@ main(int argc, char *argv[]) {
             break;
         case 'O':
             if(sscanf(optarg, "%lf/%lf", &v1,&v2) != 2) {
-                printf("error: expected lon/lat, found %s\n", optarg);
-                exit(-1);
+                error(argv[1],"error: expected lon/lat, found %s\n", optarg);
             }
             request_set_arg(r, "lon", arg_double_new(v1));
             request_set_arg(r, "lat", arg_double_new(v2));
@@ -208,23 +236,20 @@ main(int argc, char *argv[]) {
             break;
         case 'z':
             if(sscanf(optarg, "%lf/%lf", &v1,&v2) != 2) {
-                printf("error: expected depth min/max, found %s\n", optarg);
-                exit(-1);
+                error(argv[1],"error: expected depth min/max, found %s\n", optarg);
             }
             request_set_arg(r, "mindepth", arg_double_new(v1));
             request_set_arg(r, "maxdepth", arg_double_new(v2));
             break;
         default:
-            printf("error: Unknown option -%c\n", ch);
-            exit(-1);
+            error(argv[1], "invalid option\n");
             break;
         }
     }
     argc -= optind;
     argv += optind;
     if(act == ActionNone) {
-        printf("Error: Must specify a type of request\n");
-        exit(-1);
+        error(argv[1],"Error: Must specify a type of request\n");
     }
     if(act & ActionEvent && e) {
         duration d = {0,0};
