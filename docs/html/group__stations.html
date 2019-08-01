@@ -100,6 +100,36 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8fe1c4a51f9a0c9e7f0a8323f8b1aa59"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#ga8fe1c4a51f9a0c9e7f0a8323f8b1aa59">station::net_stat_sort</a> (const void *a, const void *b)</td></tr>
 <tr class="memdesc:ga8fe1c4a51f9a0c9e7f0a8323f8b1aa59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort function for (net, sta) alphanumerically.  <a href="#ga8fe1c4a51f9a0c9e7f0a8323f8b1aa59">More...</a><br /></td></tr>
 <tr class="separator:ga8fe1c4a51f9a0c9e7f0a8323f8b1aa59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4b63548902082b42eadb800d5db249c"><td class="memItemLeft" align="right" valign="top">request *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#gaa4b63548902082b42eadb800d5db249c">station_req::station_req_new</a> ()</td></tr>
+<tr class="memdesc:gaa4b63548902082b42eadb800d5db249c"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new station request  <a href="#gaa4b63548902082b42eadb800d5db249c">More...</a><br /></td></tr>
+<tr class="separator:gaa4b63548902082b42eadb800d5db249c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6af8ed24422d56c712d464d495d85665"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#ga6af8ed24422d56c712d464d495d85665">station_req::station_req_init</a> (request *r)</td></tr>
+<tr class="memdesc:ga6af8ed24422d56c712d464d495d85665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a station request.  <a href="#ga6af8ed24422d56c712d464d495d85665">More...</a><br /></td></tr>
+<tr class="separator:ga6af8ed24422d56c712d464d495d85665"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d9580b03b0b0023dc913ce2980bc3db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#ga9d9580b03b0b0023dc913ce2980bc3db">station_req::station_req_set_time_range</a> (request *r, timespec64 start, timespec64 end)</td></tr>
+<tr class="memdesc:ga9d9580b03b0b0023dc913ce2980bc3db"><td class="mdescLeft">&#160;</td><td class="mdescRight">set time range for station request  <a href="#ga9d9580b03b0b0023dc913ce2980bc3db">More...</a><br /></td></tr>
+<tr class="separator:ga9d9580b03b0b0023dc913ce2980bc3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a7e243555e7ee954c96be45e1abffa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#ga1a7e243555e7ee954c96be45e1abffa7">station_req::station_req_set_network</a> (request *r, char *net)</td></tr>
+<tr class="memdesc:ga1a7e243555e7ee954c96be45e1abffa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the network for the station request  <a href="#ga1a7e243555e7ee954c96be45e1abffa7">More...</a><br /></td></tr>
+<tr class="separator:ga1a7e243555e7ee954c96be45e1abffa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae28e47ee7b367ce59f3e87f5d788d97d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#gae28e47ee7b367ce59f3e87f5d788d97d">station_req::station_req_set_station</a> (request *r, char *sta)</td></tr>
+<tr class="memdesc:gae28e47ee7b367ce59f3e87f5d788d97d"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the station for the station request  <a href="#gae28e47ee7b367ce59f3e87f5d788d97d">More...</a><br /></td></tr>
+<tr class="separator:gae28e47ee7b367ce59f3e87f5d788d97d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad89b562af2c213b62a2ff2233dc97267"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#gad89b562af2c213b62a2ff2233dc97267">station_req::station_req_set_location</a> (request *r, char *loc)</td></tr>
+<tr class="memdesc:gad89b562af2c213b62a2ff2233dc97267"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the location for the station request  <a href="#gad89b562af2c213b62a2ff2233dc97267">More...</a><br /></td></tr>
+<tr class="separator:gad89b562af2c213b62a2ff2233dc97267"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d047d7cfdd10461bc75ac42eb2396c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#ga4d047d7cfdd10461bc75ac42eb2396c8">station_req::station_req_set_channel</a> (request *r, char *cha)</td></tr>
+<tr class="memdesc:ga4d047d7cfdd10461bc75ac42eb2396c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the channel for the station request  <a href="#ga4d047d7cfdd10461bc75ac42eb2396c8">More...</a><br /></td></tr>
+<tr class="separator:ga4d047d7cfdd10461bc75ac42eb2396c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbfd2fe418f6e7b52012069f6661a6b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#gacbfd2fe418f6e7b52012069f6661a6b3">station_req::station_req_set_region</a> (request *r, double minlon, double maxlon, double minlat, double maxlat)</td></tr>
+<tr class="memdesc:gacbfd2fe418f6e7b52012069f6661a6b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a rectangular region to search in for the station request  <a href="#gacbfd2fe418f6e7b52012069f6661a6b3">More...</a><br /></td></tr>
+<tr class="separator:gacbfd2fe418f6e7b52012069f6661a6b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf453e482bdfc20f5b6d516fb110075a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#gaf453e482bdfc20f5b6d516fb110075a8">station_req::station_req_set_origin</a> (request *r, double lon, double lat)</td></tr>
+<tr class="memdesc:gaf453e482bdfc20f5b6d516fb110075a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the origin for a radial search for the station request  <a href="#gaf453e482bdfc20f5b6d516fb110075a8">More...</a><br /></td></tr>
+<tr class="separator:gaf453e482bdfc20f5b6d516fb110075a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad1ebdce197f17c09c918f6050507bf8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__stations.html#gad1ebdce197f17c09c918f6050507bf8b">station_req::station_req_set_radius</a> (request *r, double minr, double maxr)</td></tr>
+<tr class="memdesc:gad1ebdce197f17c09c918f6050507bf8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the radius parameters for a radial search for a station request  <a href="#gad1ebdce197f17c09c918f6050507bf8b">More...</a><br /></td></tr>
+<tr class="separator:gad1ebdce197f17c09c918f6050507bf8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Station data and requests. </p>
@@ -249,6 +279,401 @@ Functions</h2></td></tr>
 <p>Create a new station struct. </p>
 <dl class="section return"><dt>Returns</dt><dd>new station struct</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>User owns the data and is responsible for freeing the underlying memory with <a class="el" href="group__stations.html#gadf782827ff286e326f0b3bfce45a641f">station_free</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga6af8ed24422d56c712d464d495d85665"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6af8ed24422d56c712d464d495d85665">&#9670;&nbsp;</a></span>station_req_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_init </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize a station request. </p>
+<p>Initialize a station request with level = station, xml format and nondata = 404. <br />
+ Requests are made to <a href="http://service.iris.edu/fdsnws/station/1/query">http://service.iris.edu/fdsnws/station/1/query</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station requset to initialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaa4b63548902082b42eadb800d5db249c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa4b63548902082b42eadb800d5db249c">&#9670;&nbsp;</a></span>station_req_new()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">request * station_req_new </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>create a new station request </p>
+<p>Create and initialize a new station request, see <a class="el" href="group__stations.html#ga6af8ed24422d56c712d464d495d85665" title="Initialize a station request. ">station_req_init()</a></p>
+<dl class="section return"><dt>Returns</dt><dd>new station request </dd></dl>
+
+</div>
+</div>
+<a id="ga4d047d7cfdd10461bc75ac42eb2396c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4d047d7cfdd10461bc75ac42eb2396c8">&#9670;&nbsp;</a></span>station_req_set_channel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_set_channel </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the channel for the station request </p>
+<p>use a comma separated list for channels, wildcards ? and * are accepted , along with - for negation</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station request </td></tr>
+    <tr><td class="paramname">cha</td><td>channel to set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gad89b562af2c213b62a2ff2233dc97267"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad89b562af2c213b62a2ff2233dc97267">&#9670;&nbsp;</a></span>station_req_set_location()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_set_location </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>loc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the location for the station request </p>
+<p>use a comma separated list for locations, wildcards ? and * are accepted , along with - for negation, use &ndash; for blank locations</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station request </td></tr>
+    <tr><td class="paramname">loc</td><td>location to set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga1a7e243555e7ee954c96be45e1abffa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1a7e243555e7ee954c96be45e1abffa7">&#9670;&nbsp;</a></span>station_req_set_network()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_set_network </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>net</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the network for the station request </p>
+<p>use a comma separated list of networks, wildcards ? and * are accepted , along with - for negation</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station request </td></tr>
+    <tr><td class="paramname">net</td><td>network to set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaf453e482bdfc20f5b6d516fb110075a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf453e482bdfc20f5b6d516fb110075a8">&#9670;&nbsp;</a></span>station_req_set_origin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_set_origin </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the origin for a radial search for the station request </p>
+<p>set the origin location for a radial search</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station request </td></tr>
+    <tr><td class="paramname">lon</td><td>longitude </td></tr>
+    <tr><td class="paramname">lat</td><td>latitude </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gad1ebdce197f17c09c918f6050507bf8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad1ebdce197f17c09c918f6050507bf8b">&#9670;&nbsp;</a></span>station_req_set_radius()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_set_radius </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>minr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>maxr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the radius parameters for a radial search for a station request </p>
+<p>set the min and maximum radius for a radial search</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station request </td></tr>
+    <tr><td class="paramname">minr</td><td>minimum radius in degrees </td></tr>
+    <tr><td class="paramname">maxr</td><td>maximum radius in degrees </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gacbfd2fe418f6e7b52012069f6661a6b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacbfd2fe418f6e7b52012069f6661a6b3">&#9670;&nbsp;</a></span>station_req_set_region()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_set_region </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>minlon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>maxlon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>minlat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>maxlat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set a rectangular region to search in for the station request </p>
+<p>set a rectangular region to search for stations</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station request </td></tr>
+    <tr><td class="paramname">minlon</td><td>minimum longitude, i.e. west </td></tr>
+    <tr><td class="paramname">maxlon</td><td>maximum longitude, i.e. east </td></tr>
+    <tr><td class="paramname">minlat</td><td>minimum latitude, i.e. south </td></tr>
+    <tr><td class="paramname">maxlat</td><td>maximum latitude, i.e. north </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gae28e47ee7b367ce59f3e87f5d788d97d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae28e47ee7b367ce59f3e87f5d788d97d">&#9670;&nbsp;</a></span>station_req_set_station()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_set_station </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>sta</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the station for the station request </p>
+<p>use a comma separated list for stations, wildcards ? and * are accepted , along with - for negation</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station request </td></tr>
+    <tr><td class="paramname">sta</td><td>station to set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga9d9580b03b0b0023dc913ce2980bc3db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d9580b03b0b0023dc913ce2980bc3db">&#9670;&nbsp;</a></span>station_req_set_time_range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void station_req_set_time_range </td>
+          <td>(</td>
+          <td class="paramtype">request *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">timespec64&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">timespec64&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set time range for station request </p>
+<p>set the start and end times for a station request</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>station request </td></tr>
+    <tr><td class="paramname">start</td><td>starting time </td></tr>
+    <tr><td class="paramname">end</td><td>ending time </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

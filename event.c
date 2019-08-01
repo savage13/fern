@@ -590,15 +590,14 @@ event_by_event_id(char *id) {
     request *er = NULL;
     result *r = NULL;
     char *url = NULL;
-    char cat[8];
+    char cat[16] = {0};
     char *p;
     fprintf(stderr, "Requesting event info for %s ...", id);
 
     // Get Catalog identifier
     p = strchr(id, ':');
-    *p = 0;
-    fern_strlcpy(cat, id, sizeof(cat));
-    *p = ':';
+    memcpy(cat, id, p-id);
+    cat[p-id] = 0;
 
     // Create Request
     er = event_req_new();
@@ -792,9 +791,10 @@ event_req_new() {
  */
 void
 event_req_set_eventid(request *e, char *id) {
-    char *catalog = id;
     char *eid = NULL;
-    if(!(eid = strchr(id, ':'))) {
+    char catalog[512] = {0};
+    fern_strlcpy(catalog, id, sizeof(catalog));
+    if(!(eid = strchr(catalog, ':'))) {
         printf("Expected ':' in eventid, e.g. source:eventid\n");
         return;
     }

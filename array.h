@@ -1,4 +1,6 @@
 
+#include <stdlib.h>
+
 void *xarray_new(char t);
 void *xarray_new_with_len(char t, int n);
 void xarray_free(void *a);

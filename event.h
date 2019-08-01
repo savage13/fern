@@ -60,4 +60,6 @@ void     event_req_set_radial(request *e, double lon, double lat,
 void     event_req_set_eventid(request *e, char *id);
 
 
+Event **quake_xml_parse(char *data, size_t data_len, int verbose, char *cat);
+
 #endif /* _EVENT_H_ */

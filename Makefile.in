@@ -89,6 +89,12 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = fern$(EXEEXT)
+TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
+	t/test_avail.sh t/test_miniseed.sh t/test_sac.sh \
+	t/eventsearch$(EXEEXT) t/stationsearch$(EXEEXT) \
+	t/datadownload$(EXEEXT)
+check_PROGRAMS = t/eventsearch$(EXEEXT) t/stationsearch$(EXEEXT) \
+	t/datadownload$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -144,12 +150,26 @@ am_libfern_a_OBJECTS = array.$(OBJEXT) cJSON.$(OBJEXT) chash.$(OBJEXT) \
 	cprint.$(OBJEXT) datareq.$(OBJEXT) event.$(OBJEXT) \
 	json.$(OBJEXT) meta.$(OBJEXT) miniseed_sac.$(OBJEXT) \
 	quake_xml.$(OBJEXT) request.$(OBJEXT) slurp.$(OBJEXT) \
-	station.$(OBJEXT) strip.$(OBJEXT) xml.$(OBJEXT)
+	station.$(OBJEXT) stationreq.$(OBJEXT) strip.$(OBJEXT) \
+	xml.$(OBJEXT)
 libfern_a_OBJECTS = $(am_libfern_a_OBJECTS)
 am_fern_OBJECTS = fern.$(OBJEXT)
 fern_OBJECTS = $(am_fern_OBJECTS)
 am__DEPENDENCIES_1 =
 fern_DEPENDENCIES = libfern.a $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+am__dirstamp = $(am__leading_dot)dirstamp
+am_t_datadownload_OBJECTS = t/data_download.$(OBJEXT)
+t_datadownload_OBJECTS = $(am_t_datadownload_OBJECTS)
+t_datadownload_DEPENDENCIES = libfern.a $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+am_t_eventsearch_OBJECTS = t/event_search.$(OBJEXT)
+t_eventsearch_OBJECTS = $(am_t_eventsearch_OBJECTS)
+t_eventsearch_DEPENDENCIES = libfern.a $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+am_t_stationsearch_OBJECTS = t/station_search.$(OBJEXT)
+t_stationsearch_OBJECTS = $(am_t_stationsearch_OBJECTS)
+t_stationsearch_DEPENDENCIES = libfern.a $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -178,8 +198,12 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libfern_a_SOURCES) $(fern_SOURCES)
-DIST_SOURCES = $(libfern_a_SOURCES) $(fern_SOURCES)
+SOURCES = $(libfern_a_SOURCES) $(fern_SOURCES) \
+	$(t_datadownload_SOURCES) $(t_eventsearch_SOURCES) \
+	$(t_stationsearch_SOURCES)
+DIST_SOURCES = $(libfern_a_SOURCES) $(fern_SOURCES) \
+	$(t_datadownload_SOURCES) $(t_eventsearch_SOURCES) \
+	$(t_stationsearch_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -365,11 +389,8 @@ am__set_TESTS_bases = \
   bases=`echo $$bases`
 RECHECK_LOGS = $(TEST_LOGS)
 TEST_SUITE_LOG = test-suite.log
-am__test_logs1 = $(TESTS:=.log)
-am__test_logs2 = $(am__test_logs1:@EXEEXT@.log=.log)
-TEST_LOGS = $(am__test_logs2:.sh.log=.log)
-SH_LOG_DRIVER = $(SHELL) $(top_srcdir)/config/test-driver
-SH_LOG_COMPILE = $(SH_LOG_COMPILER) $(AM_SH_LOG_FLAGS) $(SH_LOG_FLAGS)
+LOG_DRIVER = $(SHELL) $(top_srcdir)/config/test-driver
+LOG_COMPILE = $(LOG_COMPILER) $(AM_LOG_FLAGS) $(LOG_FLAGS)
 am__set_b = \
   case '$@' in \
     */*) \
@@ -380,6 +401,11 @@ am__set_b = \
     *) \
       b='$*';; \
   esac
+am__test_logs1 = $(TESTS:=.log)
+am__test_logs2 = $(am__test_logs1:@EXEEXT@.log=.log)
+TEST_LOGS = $(am__test_logs2:.sh.log=.log)
+SH_LOG_DRIVER = $(SHELL) $(top_srcdir)/config/test-driver
+SH_LOG_COMPILE = $(SH_LOG_COMPILER) $(AM_SH_LOG_FLAGS) $(SH_LOG_FLAGS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(top_srcdir)/config/ar-lib $(top_srcdir)/config/compile \
 	$(top_srcdir)/config/install-sh $(top_srcdir)/config/missing \
@@ -502,7 +528,7 @@ fernlibdir = $(libdir)/
 fernincdir = $(includedir)/fern
 fernlib_LIBRARIES = libfern.a
 ferninc_HEADERS = array.h request.h event.h station.h \
-                    datareq.h meta.h \
+                    stationreq.h datareq.h meta.h \
                     miniseed_sac.h cprint.h fern.h
 
 fern_SOURCES = fern.c
@@ -520,6 +546,7 @@ libfern_a_SOURCES = array.c array.h \
 										request.c request.h \
 										slurp.c slurp.h \
 										station.c station.h \
+										stationreq.c stationreq.h \
 										strip.c strip.h \
 										xml.c xml.h \
                     fern.h
@@ -527,11 +554,12 @@ libfern_a_SOURCES = array.c array.h \
 
 # TESTS
 TEST_EXTENSIONS = .sh
-TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
-        t/test_avail.sh t/test_miniseed.sh t/test_sac.sh
-
-
-#check_PROGRAMS = t/iotest t/compat
+t_eventsearch_SOURCES = t/event_search.c
+t_eventsearch_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
+t_stationsearch_SOURCES = t/station_search.c
+t_stationsearch_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
+t_datadownload_SOURCES = t/data_download.c
+t_datadownload_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
 
 #t_iotest_SOURCES = t/iotest.c
 #t_compat_SOURCES = t/compat.c
@@ -636,6 +664,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+
+clean-checkPROGRAMS:
+	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
 install-fernlibLIBRARIES: $(fernlib_LIBRARIES)
 	@$(NORMAL_INSTALL)
 	@list='$(fernlib_LIBRARIES)'; test -n "$(fernlibdir)" || list=; \
@@ -676,9 +707,28 @@ libfern.a: $(libfern_a_OBJECTS) $(libfern_a_DEPENDENCIES) $(EXTRA_libfern_a_DEPE
 fern$(EXEEXT): $(fern_OBJECTS) $(fern_DEPENDENCIES) $(EXTRA_fern_DEPENDENCIES) 
 	@rm -f fern$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(fern_OBJECTS) $(fern_LDADD) $(LIBS)
+t/$(am__dirstamp):
+	@$(MKDIR_P) t
+	@: > t/$(am__dirstamp)
+t/data_download.$(OBJEXT): t/$(am__dirstamp)
+
+t/datadownload$(EXEEXT): $(t_datadownload_OBJECTS) $(t_datadownload_DEPENDENCIES) $(EXTRA_t_datadownload_DEPENDENCIES) t/$(am__dirstamp)
+	@rm -f t/datadownload$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(t_datadownload_OBJECTS) $(t_datadownload_LDADD) $(LIBS)
+t/event_search.$(OBJEXT): t/$(am__dirstamp)
+
+t/eventsearch$(EXEEXT): $(t_eventsearch_OBJECTS) $(t_eventsearch_DEPENDENCIES) $(EXTRA_t_eventsearch_DEPENDENCIES) t/$(am__dirstamp)
+	@rm -f t/eventsearch$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(t_eventsearch_OBJECTS) $(t_eventsearch_LDADD) $(LIBS)
+t/station_search.$(OBJEXT): t/$(am__dirstamp)
+
+t/stationsearch$(EXEEXT): $(t_stationsearch_OBJECTS) $(t_stationsearch_DEPENDENCIES) $(EXTRA_t_stationsearch_DEPENDENCIES) t/$(am__dirstamp)
+	@rm -f t/stationsearch$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(t_stationsearch_OBJECTS) $(t_stationsearch_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f t/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -889,7 +939,7 @@ $(TEST_SUITE_LOG): $(TEST_LOGS)
 	fi;								\
 	$$success || exit 1
 
-check-TESTS: 
+check-TESTS: $(check_PROGRAMS)
 	@list='$(RECHECK_LOGS)';           test -z "$$list" || rm -f $$list
 	@list='$(RECHECK_LOGS:.log=.trs)'; test -z "$$list" || rm -f $$list
 	@test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
@@ -899,7 +949,7 @@ check-TESTS:
 	log_list=`echo $$log_list`; trs_list=`echo $$trs_list`; \
 	$(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_LOG) TEST_LOGS="$$log_list"; \
 	exit $$?;
-recheck: all 
+recheck: all $(check_PROGRAMS)
 	@test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
 	@set +e; $(am__set_TESTS_bases); \
 	bases=`for i in $$bases; do echo $$i; done \
@@ -910,6 +960,27 @@ recheck: all
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
+t/eventsearch.log: t/eventsearch$(EXEEXT)
+	@p='t/eventsearch$(EXEEXT)'; \
+	b='t/eventsearch'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+t/stationsearch.log: t/stationsearch$(EXEEXT)
+	@p='t/stationsearch$(EXEEXT)'; \
+	b='t/stationsearch'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+t/datadownload.log: t/datadownload$(EXEEXT)
+	@p='t/datadownload$(EXEEXT)'; \
+	b='t/datadownload'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .sh.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -1092,6 +1163,7 @@ distcleancheck: distclean
 	       $(distcleancheck_listfiles) ; \
 	       exit 1; } >&2
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: check-am
 all-am: Makefile $(PROGRAMS) $(LIBRARIES) $(HEADERS) config.h
@@ -1129,14 +1201,15 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f t/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-fernlibLIBRARIES clean-generic \
-	mostlyclean-am
+clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-fernlibLIBRARIES \
+	clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
@@ -1208,14 +1281,14 @@ uninstall-am: uninstall-binPROGRAMS uninstall-fernincHEADERS \
 .MAKE: all check-am install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am am--refresh check check-TESTS \
-	check-am clean clean-binPROGRAMS clean-cscope \
-	clean-fernlibLIBRARIES clean-generic cscope cscopelist-am \
-	ctags ctags-am dist dist-all dist-bzip2 dist-gzip dist-lzip \
-	dist-shar dist-tarZ dist-xz dist-zip distcheck distclean \
-	distclean-compile distclean-generic distclean-hdr \
-	distclean-local distclean-tags distcleancheck distdir \
-	distuninstallcheck dvi dvi-am html html-am info info-am \
-	install install-am install-binPROGRAMS install-data \
+	check-am clean clean-binPROGRAMS clean-checkPROGRAMS \
+	clean-cscope clean-fernlibLIBRARIES clean-generic cscope \
+	cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
+	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
+	distcheck distclean distclean-compile distclean-generic \
+	distclean-hdr distclean-local distclean-tags distcleancheck \
+	distdir distuninstallcheck dvi dvi-am html html-am info \
+	info-am install install-am install-binPROGRAMS install-data \
 	install-data-am install-dvi install-dvi-am install-exec \
 	install-exec-am install-fernincHEADERS \
 	install-fernlibLIBRARIES install-html install-html-am \

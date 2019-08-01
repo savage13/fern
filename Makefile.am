@@ -2,7 +2,7 @@
 # Do not create dependencies while compiling
 AUTOMAKE_OPTIONS = no-dependencies
 
-EXTRA_DIST = License README.md
+EXTRA_DIST = License README.md t config
 
 AM_CFLAGS = -Wall -Wextra -Iinclude/ $(XML_CPPFLAGS) $(LIBCURL_CPPFLAGS)
 
@@ -11,7 +11,7 @@ fernincdir = $(includedir)/fern
 
 fernlib_LIBRARIES = libfern.a
 ferninc_HEADERS   = array.h request.h event.h station.h \
-                    datareq.h meta.h \
+                    stationreq.h datareq.h meta.h \
                     miniseed_sac.h cprint.h fern.h
 
 bin_PROGRAMS = fern
@@ -32,6 +32,7 @@ libfern_a_SOURCES = array.c array.h \
 										request.c request.h \
 										slurp.c slurp.h \
 										station.c station.h \
+										stationreq.c stationreq.h \
 										strip.c strip.h \
 										xml.c xml.h \
                     fern.h
@@ -40,10 +41,16 @@ libfern_a_SOURCES = array.c array.h \
 
 TEST_EXTENSIONS = .sh
 TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
-        t/test_avail.sh t/test_miniseed.sh t/test_sac.sh
-EXTRA_DIST += t config
+        t/test_avail.sh t/test_miniseed.sh t/test_sac.sh \
+        t/eventsearch t/stationsearch t/datadownload
 
-#check_PROGRAMS = t/iotest t/compat
+check_PROGRAMS = t/eventsearch t/stationsearch t/datadownload
+t_eventsearch_SOURCES = t/event_search.c
+t_eventsearch_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
+t_stationsearch_SOURCES = t/station_search.c
+t_stationsearch_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
+t_datadownload_SOURCES = t/data_download.c
+t_datadownload_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
 
 #t_iotest_SOURCES = t/iotest.c
 #t_compat_SOURCES = t/compat.c

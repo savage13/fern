@@ -3,6 +3,7 @@
 #include "request.h"
 #include "event.h"
 #include "station.h"
+#include "stationreq.h"
 #include "datareq.h"
 #include "meta.h"
 #include "miniseed_sac.h"

@@ -161,7 +161,7 @@ station_to_string(station *s, int show_times, char *dst, size_t n) {
  * @param epochs    if true, assume unique on/off times, else only use net.sta.loc.cha
  * @param verbose   be verbose during parsing
  *
- * @return collection of \ref station, enclosed in a \ref xarray
+ * @return collection of \ref station, enclosed in a \ref xarray, NULL on error
  *
  * @warning User owns the station collection and is responsible for freeing
  *   the underlying memory with \ref station_free and xarray_free()
