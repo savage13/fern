@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['xarray_5fappend',['xarray_append',['../group__array.html#ga714c0b0b66ee5667e4e3c025ab834cdc',1,'xarray']]],
+  ['xarray_5fclear',['xarray_clear',['../group__array.html#gab381491e987b9a3134a446991471252b',1,'xarray']]],
+  ['xarray_5fdelete',['xarray_delete',['../group__array.html#gaff03a13f8f926210d0e1260c7f9d25e2',1,'xarray']]],
+  ['xarray_5ffree',['xarray_free',['../group__array.html#gabbef8f241d8fd7f6408ee4dd1ec2de8d',1,'xarray']]],
+  ['xarray_5ffree_5fitems',['xarray_free_items',['../group__array.html#ga93092171ddf06e01b14a97dc72f94e04',1,'xarray']]],
+  ['xarray_5flength',['xarray_length',['../group__array.html#ga506af6bb70cc5dc4c0a7514e011f57a9',1,'xarray']]],
+  ['xarray_5fnew',['xarray_new',['../group__array.html#gaa8707d46bb0810a925886b81b1a71bca',1,'xarray']]],
+  ['xarray_5fnew_5fwith_5flen',['xarray_new_with_len',['../group__array.html#gab22045f72395029471b58cc89fc3ade5',1,'xarray']]],
+  ['xarray_5fpop',['xarray_pop',['../group__array.html#ga693b70854c921b00c55d6ec83898ba76',1,'xarray']]],
+  ['xarray_5fsort',['xarray_sort',['../group__array.html#ga3351e853eb9f52fbd0fadf60f3022a62',1,'xarray']]],
+  ['xml',['xml',['../group__xml.html',1,'']]],
+  ['xml_2ec',['xml.c',['../xml_8c.html',1,'']]],
+  ['xml_5ffind',['xml_find',['../group__xml.html#ga660e1e8721e17ba9d4d623bdafbc61b0',1,'xml']]],
+  ['xml_5ffind_5fall',['xml_find_all',['../group__xml.html#gad70bf47ecb21b46b253f1f0ceccd562d',1,'xml']]],
+  ['xml_5ffind_5fdouble',['xml_find_double',['../group__xml.html#ga5da3594ce68a212e7e80dfc3c40e0d34',1,'xml']]],
+  ['xml_5ffind_5fstring',['xml_find_string',['../group__xml.html#gacb5ed2b81fcb9741c1ae68b0f343da22',1,'xml']]],
+  ['xml_5ffind_5fstring_5fcopy',['xml_find_string_copy',['../group__xml.html#ga42a0ef8b2da7f436ef2b8bc760390396',1,'xml']]],
+  ['xml_5ffind_5fstring_5fdup',['xml_find_string_dup',['../group__xml.html#ga47a20d01cc92e2dab647a94745a17888',1,'xml']]],
+  ['xml_5ffind_5ftime',['xml_find_time',['../group__xml.html#ga54833d282ca1fd61d66b41fb5847bb1e',1,'xml']]],
+  ['xml_5ffree',['xml_free',['../group__xml.html#ga1961137c2912e39946fdc93a61e8adb0',1,'xml']]],
+  ['xml_5fget_5ftext_5fnode',['xml_get_text_node',['../group__xml.html#ga7d22dbef1fa4fd102681766be9683877',1,'xml']]],
+  ['xml_5fnew',['xml_new',['../group__xml.html#ga8afe912ea701f121890ed6d759e969b8',1,'xml']]],
+  ['xpath_5findex',['xpath_index',['../group__xml.html#ga161ec3bf14d3f64d9054c401b658eb29',1,'xml']]],
+  ['xpath_5flen',['xpath_len',['../group__xml.html#ga4a9c12752584c36f1f8cc496b2d095c5',1,'xml']]]
+];

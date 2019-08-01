@@ -1,4 +1,4 @@
-libfern Documentation        {#mainpage}
+libfern Documentation
 =====================
 
 Overview
@@ -344,7 +344,8 @@ Requirements
 ------------
 
 - libmseed - https://github.com/iris-edu/libmseed
-- libsacio - http://ds.iris.edu/ds/nodes/dmc/forms/sac/
+- libsacio (IRIS/LLNL) - http://ds.iris.edu/ds/nodes/dmc/forms/sac/
+- libsacio (BSD) - http://https://github.com/savage13/sacio
 - libcurl - https://curl.haxx.se/libcurl/ (On most systems)
 - libxml2 - http://www.xmlsoft.org/ (On most systems)
 - cJSON - https://github.com/DaveGamble/cJSON (Included)
