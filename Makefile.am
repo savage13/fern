@@ -4,25 +4,20 @@ AUTOMAKE_OPTIONS = no-dependencies
 
 EXTRA_DIST = License README.md t config
 
-AM_CFLAGS = -Wall -Wextra -Iinclude/ $(XML_CPPFLAGS) $(LIBCURL_CPPFLAGS)
+AM_CFLAGS = -Wall -Wextra -Iinclude/ $(XML_CPPFLAGS) $(LIBCURL_CPPFLAGS) -I$(top_srcdir)
 
 fernlibdir = $(libdir)/
 fernincdir = $(includedir)/fern
 
-fernlib_LIBRARIES = libfern.a
+fernlib_LIBRARIES = libfern.a libpile.a
 ferninc_HEADERS   = array.h request.h event.h station.h \
                     stationreq.h datareq.h meta.h \
                     miniseed_sac.h cprint.h fern.h
 
 bin_PROGRAMS = fern
+fern_LDADD = libfern.a libpile.a $(XML_LIBS) $(LIBCURL)
 
-fern_SOURCES = fern.c
-fern_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
-
-libfern_a_SOURCES = array.c array.h \
-										cJSON.c cJSON.h \
-										chash.c chash.h \
-										cprint.c cprint.h \
+libfern_a_SOURCES = cJSON.c cJSON.h \
                     datareq.c datareq.h \
 										event.c event.h \
 										json.c json.h \
@@ -37,7 +32,7 @@ libfern_a_SOURCES = array.c array.h \
 										xml.c xml.h \
                     fern.h
 
-# TESTS
+libpile_a_SOURCES = chash.c chash.h array.c array.h cprint.c cprint.h
 
 TEST_EXTENSIONS = .sh
 TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
@@ -52,13 +47,7 @@ t_stationsearch_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
 t_datadownload_SOURCES = t/data_download.c
 t_datadownload_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
 
-#t_iotest_SOURCES = t/iotest.c
-#t_compat_SOURCES = t/compat.c
 
-#t_iotest_CFLAGS = -Iinclude
-#t_compat_CFLAGS = -Iinclude
-#t_iotest_LDADD = libsacio_bsd.a -lm
-#t_compat_LDADD = libsacio_bsd.a -lm
 
 CLEANFILES = t/*.test t/test_miniseed*mseed
 
