@@ -25,6 +25,7 @@ libfern_a_SOURCES = cJSON.c cJSON.h \
 										miniseed_sac.c miniseed_sac.h \
 										quake_xml.c \
 										request.c request.h \
+                    response.c response.h \
 										slurp.c slurp.h \
 										station.c station.h \
 										stationreq.c stationreq.h \
@@ -41,11 +42,11 @@ TESTS = t/test_event.sh t/test_station.sh t/test_station_event.sh \
 
 check_PROGRAMS = t/eventsearch t/stationsearch t/datadownload
 t_eventsearch_SOURCES = t/event_search.c
-t_eventsearch_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
+t_eventsearch_LDADD = libfern.a libpile.a $(XML_LIBS) $(LIBCURL)
 t_stationsearch_SOURCES = t/station_search.c
-t_stationsearch_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
+t_stationsearch_LDADD = libfern.a libpile.a $(XML_LIBS) $(LIBCURL)
 t_datadownload_SOURCES = t/data_download.c
-t_datadownload_LDADD = libfern.a $(XML_LIBS) $(LIBCURL)
+t_datadownload_LDADD = libfern.a libpile.a $(XML_LIBS) $(LIBCURL)
 
 
 
