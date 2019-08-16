@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = no-dependencies
 
 EXTRA_DIST = License README.md t config
 
-AM_CFLAGS = -Wall -Wextra -Iinclude/ $(XML_CPPFLAGS) $(LIBCURL_CPPFLAGS) -I$(top_srcdir)
+AM_CFLAGS = -fPIC -Wall -Wextra -Iinclude/ $(XML_CPPFLAGS) $(LIBCURL_CPPFLAGS) -I$(top_srcdir)
 
 fernlibdir = $(libdir)/
 fernincdir = $(includedir)/fern
