@@ -553,7 +553,7 @@ event_from_json(char *data, size_t datalen, int verbose, char *catalog) {
     cjson_time64(p, &e->time, "eventtime", NULL);
 
     if(strlen(e->eventid) > 0) {
-        char tmp[EVENTID_LEN];
+        char tmp[2*EVENTID_LEN];
         sprintf(tmp, "%s:%s", catalog, e->eventid);
         event_set_id(e, tmp);
     }
