@@ -4,4 +4,4 @@ os:
   - linux
 
 before_install:
-  ./install_libmseed.sh && ./install_libsacio.sh
+  ./install-libmseed.sh && ./install-libsacio.sh
