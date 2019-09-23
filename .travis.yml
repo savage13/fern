@@ -3,6 +3,8 @@ language: c
 os:
   - linux
 
+script: ./build.sh
+
 env:
   - LDFLAGS="-Llibmseed -Lsacio"
 
