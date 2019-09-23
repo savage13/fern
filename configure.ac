@@ -14,6 +14,9 @@ AM_PATH_XML2(2.4.0, [], [ AC_MSG_ERROR("Cannot find libxml2 library") ])
 # libcurl
 LIBCURL_CHECK_CONFIG
 
+AC_SEARCH_LIBS([sin], [m], [], [
+  AC_MSG_ERROR([unable to find the sin() function])
+])
 AC_SEARCH_LIBS([ms3_readmsr], [mseed], [], [
    AC_MSG_ERROR([unable to find the ms3_readmsr() function])
 ])
