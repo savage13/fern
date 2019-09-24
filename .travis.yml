@@ -8,3 +8,6 @@ env:
 
 before_install:
   ./install-libmseed.sh && ./install-libsacio.sh
+
+
+script: ./build.sh
