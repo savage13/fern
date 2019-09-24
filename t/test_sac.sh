@@ -31,7 +31,7 @@ function md5_file() {
     V=$(command -v md5sum)
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
-        md5sum "$1"
+        md5sum "$1" | awk '{print $1}'
         exit 0
     fi
     exit -1
