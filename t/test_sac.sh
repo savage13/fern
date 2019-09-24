@@ -20,12 +20,24 @@ function command_find() {
     exit -1
 }
 
-MD5=$(command_find md5sum md5) || { echo >&2 "Error: could not find md5.  Aborting."; exit 1; }
-echo "MD5: $MD5"
-
-
+function md5_file() {
+    FILE="$1"
+    V=$(command -v md5)
+    RETVAL=$?
+    if [ $RETVAL -eq 0 ]; then
+        md5 -q "$1"
+        exit 0
+    fi
+    command -v md5sum
+    RETVAL=$?
+    if [ $RETVAL -eq 0 ]; then
+        md5sum "$1"
+        exit 0
+    fi
+    exit -1
+}
 # Check File
-md5_file=$(${MD5} -q $SACFILE)
+md5_file=$(md5_file $SACFILE) || echo >&2 "Error: Could not find md5 program, aborting"
 
 # Generated MD5 Sum on original file
 md5_check="070b60dfae8994551085b09f19eb3f7c" # v6 original
