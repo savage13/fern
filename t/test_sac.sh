@@ -28,7 +28,7 @@ function md5_file() {
         md5 -q "$1"
         exit 0
     fi
-    command -v md5sum
+    V=$(command -v md5sum)
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
         md5sum "$1"
