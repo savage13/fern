@@ -189,152 +189,152 @@ Examples using libfern
 
 #### <a name="event-fern">Event Search with libfern</a>
 
-~~~{.c}
-    // Contstruct a request
-    //  Magnitude: 8 - 10
-    //  Time:      1994/160 - 1994/161
-    //  Depth:     400.0 - 700.0 km
-    //  Verbose:   On
-    request *r = event_req_new();
-    request_set_url(r, "https://earthquake.usgs.gov/fdsnws/event/1/query?");
-    event_req_set_mag(r, 8.0, 10.0);
-    event_req_set_depth(r, 400.0, 700.0);
-    event_req_set_time_range(r,
-                             timespec64_from_yjhmsf(1994, 160, 0, 0, 0, 0),
-                             timespec64_from_yjhmsf(1994, 161, 0, 0, 0, 0));
-    request_set_verbose(r, 1);
+```c
+// Contstruct a request
+//  Magnitude: 8 - 10
+//  Time:      1994/160 - 1994/161
+//  Depth:     400.0 - 700.0 km
+//  Verbose:   On
+request *r = event_req_new();
+request_set_url(r, "https://earthquake.usgs.gov/fdsnws/event/1/query?");
+event_req_set_mag(r, 8.0, 10.0);
+event_req_set_depth(r, 400.0, 700.0);
+event_req_set_time_range(r,
+                         timespec64_from_yjhmsf(1994, 160, 0, 0, 0, 0),
+                         timespec64_from_yjhmsf(1994, 161, 0, 0, 0, 0));
+request_set_verbose(r, 1);
 
-    // Get request and check result
-    result *res = request_get(r);
-    if(!result_is_ok(res)) {
-        return -1;
-    }
-    // Parse quake xml output
-    int verbose = 1;
-    char catalog[5] = "usgs";
-    Event **ev = quake_xml_parse(result_data(res), result_len(res), verbose, catalog);
+// Get request and check result
+result *res = request_get(r);
+if(!result_is_ok(res)) {
+    return -1;
+}
+// Parse quake xml output
+int verbose = 1;
+char catalog[5] = "usgs";
+Event **ev = quake_xml_parse(result_data(res), result_len(res), verbose, catalog);
 
-    // Print out the events
-    events_write(ev, stdout);
-~~~
+// Print out the events
+events_write(ev, stdout);
+```
 
 #### <a name="station-fern">Station Search with libfern</a>
 
-~~~{.c}
-    // Construct a request
-    // Time:     1994/160 - 1994/161
-    // Network:  XE
-    // Channel:  BH?
-    // Region:   -180/180/-90/0
-    request *r = station_req_new();
-    station_req_set_time_range(r,
-                               timespec64_from_yjhmsf(1994, 160, 0, 0, 0, 0),
-                               timespec64_from_yjhmsf(1994, 161, 0, 0, 0, 0));
-    station_req_set_network(r, "XE");
-    station_req_set_channel(r, "BH?");
-    station_req_set_region(r, -180.0, 180.0, -90.0, 0.0);
-    request_set_verbose(r, 1);
-    // Get request and check result
-    result *res = request_get(r);
-    if(!result_is_ok(res)) {
-        return -1;
-    }
-    // Parse station xml output
-    int verbose   = 1;
-    int epochs    = 1;
-    int show_time = 1;
-    station **st = station_xml_parse(result_data(res), result_len(res), epochs, verbose);
-    if(st == NULL) {
-        return -1;
-    }
-    // Print out the stations
-    stations_write(st, show_time, stdout);
-~~~
+```c
+// Construct a request
+// Time:     1994/160 - 1994/161
+// Network:  XE
+// Channel:  BH?
+// Region:   -180/180/-90/0
+request *r = station_req_new();
+station_req_set_time_range(r,
+                           timespec64_from_yjhmsf(1994, 160, 0, 0, 0, 0),
+                           timespec64_from_yjhmsf(1994, 161, 0, 0, 0, 0));
+station_req_set_network(r, "XE");
+station_req_set_channel(r, "BH?");
+station_req_set_region(r, -180.0, 180.0, -90.0, 0.0);
+request_set_verbose(r, 1);
+// Get request and check result
+result *res = request_get(r);
+if(!result_is_ok(res)) {
+    return -1;
+}
+// Parse station xml output
+int verbose   = 1;
+int epochs    = 1;
+int show_time = 1;
+station **st = station_xml_parse(result_data(res), result_len(res), epochs, verbose);
+if(st == NULL) {
+    return -1;
+}
+// Print out the stations
+stations_write(st, show_time, stdout);
+```
 
 #### <a name="data-fern">Data Download with libfern</a>
 
-~~~{.c}
-    size_t i = 0;
-    // Create a Data Request
-    // Origin(Lon, Lat):  -67.55, -13.84  (Deep Bolivia Event 1994)
-    // Time:              1994/160 00:33:16 - 1994/160 01:03:16
-    // Network:           IU,XE
-    // Radius:            0 - 35 degrees
-    fprintf(stderr, "Data Download init\n");
-    Event *ev = event_from_id("usgs:usp0006dzc");
-    fprintf(stderr, "event: %p\n", ev);
-    if(!ev) {
-        fprintf(stderr, "event undefined: %p\n", ev);
-        return -1;
-    }
-    request *r = data_avail_new();
-    data_avail_set_origin(r, -67.55, -13.84);
-    // Alternative using an event (Location)
-    // data_avail_set_origin(r, event_lon(ev), event_lat(ev));
-    data_avail_set_radius(r, 0.0, 35.0);
-    data_avail_set_network(r, "IU,XE");
-    data_avail_set_channel(r, "BHZ");
-    data_avail_set_station(r, "DOOR");
-    data_avail_set_time_range(r,
-                              timespec64_from_yjhmsf(1994, 160, 0, 33, 16, 0),
-                              timespec64_from_yjhmsf(1994, 160, 1, 03, 16, 0));
-    // Alternative using the event (time)
-    // duration d = { 0, 0 };
-    // duration_parse(&d, "30m");
-    // timespec64 start = event_time(ev);
-    // timespec64 end   = timespec64_add_duration(start, &dur);
-    // data_avail_set_time(r, start, end);
-    request_set_verbose(r, 1);
-    // Get request and check result
-    result *res = request_get(r);
-    if(!result_is_ok(res)) {
-        printf("request is not ok\n");
-        return -1;
-    }
-    fprintf(stderr, "request is ok\n");
-    // Parse the result into a data request
-    data_request *dr = data_request_parse( result_data(res) );
-    // Print a formatted data request
-    data_request_write(dr, stdout);
-    // Write the data request to an actual file (optional)
-    // data_request_write_to_file(dr, "data.request");
-    // The request can be split into multiple pieces based on request size in MB
-    //    Optional, but can be useful for long duration requests that last longer
-    //     than a traditional earthquake record.  It is ok, the libmseed library can
-    //    magically merge the request files back together again, provided there
-    //    are no data gaps.
-    // data_request_chunks(dr, 100);
-    // Download the data !!!
-    // Download the all of the requests
-    MS3TraceList *mst3k = NULL;
-    int save_files  = 1;
-    int unpack_data = 1;
-    mst3k = data_request_download(dr, "data.request", "miniseed_prefix",
-                                  save_files, unpack_data);
-    // Convert miniseed trace list to sac files
-    sac **s = NULL;
-    s = miniseed_trace_list_to_sac(mst3k);
-    // Insert station meta data for sac files
-    int verbose = 1;
-    sac_array_fill_meta_data(s, verbose);
-    // Or from a file
-    // sac_fill_meta_data_from_file(s, verbose, "station.xml");
-    // sac_fill_meta_data_from_file(s, verbose, "station.json");
-    // Insert event meta data if event is available
-    // Use the Bolivian Event from above
-    sac_array_fill_meta_data_from_event(s, ev, verbose);
-    // Calculate distance, azimuth, ...
-    for(i = 0; i < xarray_length(s); i++) {
-        update_distaz(s[i]);  // Function in sacio
-    }
-    // Write out sac files
-    //   A filename is defined in an extra meta data sac header
-    //   The extra meta data is not written out to the file
-    int nerr = 0;
-    for(i = 0; i < xarray_length(s); i++) {
-        sac_write(s[i], s[i]->m->filename, &nerr);
-    }
-~~~
+```c
+size_t i = 0;
+// Create a Data Request
+// Origin(Lon, Lat):  -67.55, -13.84  (Deep Bolivia Event 1994)
+// Time:              1994/160 00:33:16 - 1994/160 01:03:16
+// Network:           IU,XE
+// Radius:            0 - 35 degrees
+fprintf(stderr, "Data Download init\n");
+Event *ev = event_from_id("usgs:usp0006dzc");
+fprintf(stderr, "event: %p\n", ev);
+if(!ev) {
+    fprintf(stderr, "event undefined: %p\n", ev);
+    return -1;
+}
+request *r = data_avail_new();
+data_avail_set_origin(r, -67.55, -13.84);
+// Alternative using an event (Location)
+// data_avail_set_origin(r, event_lon(ev), event_lat(ev));
+data_avail_set_radius(r, 0.0, 35.0);
+data_avail_set_network(r, "IU,XE");
+data_avail_set_channel(r, "BHZ");
+data_avail_set_station(r, "DOOR");
+data_avail_set_time_range(r,
+                          timespec64_from_yjhmsf(1994, 160, 0, 33, 16, 0),
+                          timespec64_from_yjhmsf(1994, 160, 1, 03, 16, 0));
+// Alternative using the event (time)
+// duration d = { 0, 0 };
+// duration_parse(&d, "30m");
+// timespec64 start = event_time(ev);
+// timespec64 end   = timespec64_add_duration(start, &dur);
+// data_avail_set_time(r, start, end);
+request_set_verbose(r, 1);
+// Get request and check result
+result *res = request_get(r);
+if(!result_is_ok(res)) {
+    printf("request is not ok\n");
+    return -1;
+}
+fprintf(stderr, "request is ok\n");
+// Parse the result into a data request
+data_request *dr = data_request_parse( result_data(res) );
+// Print a formatted data request
+data_request_write(dr, stdout);
+// Write the data request to an actual file (optional)
+// data_request_write_to_file(dr, "data.request");
+// The request can be split into multiple pieces based on request size in MB
+//    Optional, but can be useful for long duration requests that last longer
+//     than a traditional earthquake record.  It is ok, the libmseed library can
+//    magically merge the request files back together again, provided there
+//    are no data gaps.
+// data_request_chunks(dr, 100);
+// Download the data !!!
+// Download the all of the requests
+MS3TraceList *mst3k = NULL;
+int save_files  = 1;
+int unpack_data = 1;
+mst3k = data_request_download(dr, "data.request", "miniseed_prefix",
+                              save_files, unpack_data);
+// Convert miniseed trace list to sac files
+sac **s = NULL;
+s = miniseed_trace_list_to_sac(mst3k);
+// Insert station meta data for sac files
+int verbose = 1;
+sac_array_fill_meta_data(s, verbose);
+// Or from a file
+// sac_fill_meta_data_from_file(s, verbose, "station.xml");
+// sac_fill_meta_data_from_file(s, verbose, "station.json");
+// Insert event meta data if event is available
+// Use the Bolivian Event from above
+sac_array_fill_meta_data_from_event(s, ev, verbose);
+// Calculate distance, azimuth, ...
+for(i = 0; i < xarray_length(s); i++) {
+    update_distaz(s[i]);  // Function in sacio
+}
+// Write out sac files
+//   A filename is defined in an extra meta data sac header
+//   The extra meta data is not written out to the file
+int nerr = 0;
+for(i = 0; i < xarray_length(s); i++) {
+    sac_write(s[i], s[i]->m->filename, &nerr);
+ }
+```
 
 Requirements
 ------------
