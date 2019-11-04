@@ -65,7 +65,7 @@ main() {
     s = miniseed_trace_list_to_sac(mst3k);
     // Insert station meta data for sac files
     int verbose = 1;
-    sac_array_fill_meta_data(s, verbose);
+    sac_array_fill_meta_data(s, verbose, FALSE);
     // Or from a file
     // sac_fill_meta_data_from_file(s, verbose, "station.xml");
     // sac_fill_meta_data_from_file(s, verbose, "station.json");
