@@ -14,7 +14,7 @@ main() {
                                timespec64_from_yjhmsf(1994, 161, 0, 0, 0, 0));
     station_req_set_network(r, "XE");
     station_req_set_channel(r, "BH?");
-    station_req_set_region(r, -180.0+1e-6, 180.0, -90.0, 0.0);
+    station_req_set_region(r, -180.0, 180.0, -90.0, 0.0);
     request_set_verbose(r, 1);
     // Get request and check result
     result *res = request_get(r);
