@@ -6,7 +6,7 @@ IU  BILL   68.0653  166.4531  320.00 Bilibino, Russia
 IU  CASY  -66.2792  110.5354   10.00 Casey, Antarctica
 IU  CCM    38.0557  -91.2446  222.00 Cathedral Cave, Missouri, USA
 IU  CHTO   18.8141   98.9443  420.00 Chiang Mai, Thailand
-IU  COLA   64.8736 -147.8616  200.00 Global Seismograph Network - IRIS/USGS
+IU  COLA   64.8736 -147.8616  200.00 College Outpost, Alaska, USA
 IU  COR    44.5855 -123.3046  110.00 Corvallis, Oregon, USA
 IU  CTAO  -20.0882  146.2545  357.00 Charters Towers, Australia
 IU  DAV     7.0697  125.5791  150.00 Davao, Philippines
@@ -47,7 +47,7 @@ IU  SBA   -77.8492  166.7572   50.00 Scott Base, Antarctica
 IU  SDV     8.8839  -70.6340 1620.00 Santo Domingo, Venezuela
 IU  SFJ    66.9967  -50.6156  365.00 Sondre Stromfjord, Greenland
 IU  SJG    18.1091  -66.1500  420.00 San Juan, Puerto Rico
-IU  SNZO  -41.3087  174.7043  120.00 Global Seismograph Network - IRIS/USGS
+IU  SNZO  -41.3087  174.7043  120.00 South Karori, New Zealand
 IU  SPA   -90.0000    0.0000 2927.00 South Pole, Antarctica
 IU  SSPA   40.6358  -77.8876  270.00 Standing Stone, Pennsylvania
 IU  TATO   24.9735  121.4971  160.00 Taipei, Taiwan
